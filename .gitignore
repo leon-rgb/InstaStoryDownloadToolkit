@@ -1,0 +1,11 @@
+# Ignore Instagram session files
+session-*
+
+# Ignore downloaded stories
+stories/
+
+# Ignore temporary video list file
+video_list.txt
+
+# Optionally ignore merged video files
+merged_stories*.mp4
