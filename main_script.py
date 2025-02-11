@@ -2,6 +2,7 @@ import os
 import instaloader
 import getpass
 from datetime import datetime
+import shutil
 
 def get_instaloader_instance(login_username):
     L = instaloader.Instaloader()
@@ -36,7 +37,12 @@ def download_stories(target_username, L):
         print("This account is private. You might not be allowed to access its stories.")
         return
 
-    os.makedirs("stories", exist_ok=True)
+    # Define the directory path
+    stories_dir = "stories"
+    if os.path.exists(stories_dir):
+        shutil.rmtree(stories_dir)  # Delete the entire folder
+    os.makedirs(stories_dir, exist_ok=True)  # Recreate it
+
     story_found = False
 
     # Download stories for the target profile
@@ -74,9 +80,10 @@ def main():
     login_username = input("Enter your Instagram username for login: ")
     L = get_instaloader_instance(login_username)
     
-    target_username = input("Enter the Instagram username whose stories you want to download: ")
-    download_stories(target_username, L)
-    merge_videos()
+    while(True):
+        target_username = input("Enter the Instagram username whose stories you want to download: ")
+        download_stories(target_username, L)
+        merge_videos()
 
 if __name__ == "__main__":
     main()
